@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Clínica Elcana — Estética Avançada em Curitiba. Harmonização Facial, Botox, Bioestimuladores e muito mais.">
+<meta name="keywords" content="clínica estética, curitiba, harmonização facial, botox, bioestimuladores, ácido hialurônico">
+<meta property="og:title" content="Clínica Elcana — A arte de cuidar de você.">
+<meta property="og:description" content="Clínica de Estética Avançada em Curitiba. Tecnologia, empatia e resultados únicos.">
+<meta property="og:type" content="website">
+
+<!-- Segurança: Content Security Policy -->
+<!-- Após publicar, ajuste as origens abaixo para apenas seus domínios reais -->
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src  'self' https://www.gstatic.com https://apis.google.com;
+  style-src   'self' 'unsafe-inline' https://fonts.googleapis.com;
+  font-src    'self' https://fonts.gstatic.com;
+  img-src     'self' data: blob: https://images.unsplash.com https://firebasestorage.googleapis.com;
+  connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com;
+  frame-src   'none';
+  object-src  'none';
+">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+
+<title>Clínica Elcana — A arte de cuidar de você.</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#hero" class="logo">Elcana</a>
+  <ul class="nav-links">
+    <li><a href="#hero">Início</a></li>
+    <li><a href="#about">A Clínica</a></li>
+    <li><a href="#treatments">Tratamentos</a></li>
+    <li><a href="#contact">Contato</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-admin" onclick="openLoginModal()">Área Admin</button>
+  </div>
+  <button class="nav-mobile-toggle" onclick="toggleMobileMenu()" aria-label="Menu">&#9776;</button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#hero"        onclick="closeMobileMenu()">Início</a></li>
+    <li><a href="#about"       onclick="closeMobileMenu()">A Clínica</a></li>
+    <li><a href="#treatments"  onclick="closeMobileMenu()">Tratamentos</a></li>
+    <li><a href="#contact"     onclick="closeMobileMenu()">Contato</a></li>
+    <li><a href="#" onclick="closeMobileMenu();openLoginModal()">Área Admin</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-label">Clínica de Estética Avançada</p>
+    <h1 class="hero-title" id="heroTitle"></h1>
+    <p class="hero-sub" id="heroSub"></p>
+    <a href="#contact" class="btn-primary">Agendar Consulta</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-inner about-grid">
+    <div class="about-text">
+      <p class="section-label">A Elcana</p>
+      <h2 class="section-title" id="aboutTitle"></h2>
+      <p id="aboutText"></p>
+      <br>
+      <a href="#treatments" class="btn-primary" style="font-size:0.74rem">Ver Tratamentos</a>
+    </div>
+    <div class="about-stats">
+      <div class="stat-item"><span class="stat-num">8+</span><span class="stat-desc">Anos de experiência</span></div>
+      <div class="stat-item"><span class="stat-num">2k+</span><span class="stat-desc">Clientes atendidos</span></div>
+      <div class="stat-item"><span class="stat-num">15+</span><span class="stat-desc">Procedimentos</span></div>
+      <div class="stat-item"><span class="stat-num">5★</span><span class="stat-desc">Avaliação média</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TREATMENTS -->
+<section class="treatments-section" id="treatments">
+  <div class="section-inner">
+    <p class="section-label">Procedimentos</p>
+    <h2 class="section-title">Nossos tratamentos</h2>
+    <div class="treatments-grid" id="treatmentsGrid">
+      <p class="loading-text">Carregando…</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="section-inner">
+    <p class="section-label">Contato</p>
+    <h2 class="section-title">Fale conosco</h2>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-info-item">
+          <div class="contact-icon">📍</div>
+          <div><h4>Endereço</h4><p id="contactAddress"></p></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">📱</div>
+          <div><h4>WhatsApp</h4><p><a id="contactPhone" href="#"></a></p></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">📸</div>
+          <div><h4>Instagram</h4><p><a id="contactInstagram" href="#" target="_blank" rel="noopener noreferrer"></a></p></div>
+        </div>
+        <a id="wppLink" href="#" class="wpp-btn" target="_blank" rel="noopener noreferrer">
+          <span>💬</span> Falar no WhatsApp
+        </a>
+      </div>
+      <div class="contact-box">
+        <h3>Cada resultado é tão único<br>quanto você.</h3>
+        <p id="contactPhrase"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Clínica Elcana</div>
+  <p class="footer-text">© <span id="footerYear"></span> Clínica Elcana. Todos os direitos reservados.</p>
+  <div class="footer-social">
+    <a id="footerInsta" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+  </div>
+</footer>
+
+<!-- ======================================================
+     LOGIN MODAL
+     ====================================================== -->
+<div class="modal-overlay" id="loginOverlay" role="dialog" aria-modal="true" aria-label="Login administrativo">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <h2 class="modal-title">Área Administrativa</h2>
+      <button class="modal-close" onclick="closeLoginModal()" aria-label="Fechar">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-hint">Acesso restrito. Use o e-mail e senha cadastrados no Firebase.</p>
+      <div class="form-group">
+        <label class="form-label" for="loginEmail">E-mail</label>
+        <input type="email" class="form-input" id="loginEmail"
+               placeholder="admin@clinicaelcana.com.br"
+               autocomplete="username" maxlength="100">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="loginPass">Senha</label>
+        <input type="password" class="form-input" id="loginPass"
+               placeholder="••••••••"
+               autocomplete="current-password" maxlength="128">
+        <p class="error-msg" id="loginError"></p>
+      </div>
+      <button class="btn-submit" id="btnLogin" onclick="doLogin()">Entrar no painel</button>
+      <p style="color:var(--text-muted);font-size:0.72rem;margin-top:1.2rem;line-height:1.6;text-align:center">
+        Esqueceu a senha? Redefina em<br>
+        <a href="https://console.firebase.google.com" target="_blank" rel="noopener noreferrer"
+           style="color:var(--gold)">Firebase Console → Authentication</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     ADMIN PANEL MODAL
+     ====================================================== -->
+<div class="modal-overlay" id="adminOverlay" role="dialog" aria-modal="true" aria-label="Painel de edição">
+  <div class="modal" style="max-width:760px">
+    <div class="modal-header">
+      <h2 class="modal-title">Painel de Edição</h2>
+      <button class="modal-close" onclick="closeAdminModal()" aria-label="Fechar">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="save-bar">
+        <span class="save-bar-text">✓ Logado com segurança via Firebase</span>
+        <div style="display:flex;gap:0.8rem;align-items:center;flex-wrap:wrap">
+          <button class="btn-logout" onclick="doLogout()">Sair</button>
+          <button class="btn-save" id="btnSave" onclick="saveAll()">💾 Salvar &amp; Publicar</button>
+        </div>
+      </div>
+
+      <div class="modal-tabs">
+        <button class="modal-tab active" onclick="switchAdminTab('wallpaper',this)">🖼 Papel de Fundo</button>
+        <button class="modal-tab" onclick="switchAdminTab('texts',this)">✏️ Textos</button>
+        <button class="modal-tab" onclick="switchAdminTab('procedures',this)">💆 Procedimentos</button>
+        <button class="modal-tab" onclick="switchAdminTab('contact',this)">📞 Contato</button>
+      </div>
+
+      <!-- TAB: WALLPAPER -->
+      <div class="admin-tab active" id="admin-wallpaper">
+        <p class="tab-hint">Escolha um papel de fundo pronto ou envie sua própria imagem (JPG/PNG/WEBP, máx. 5MB). A imagem é salva no Firebase Storage — permanente para todos os visitantes.</p>
+        <div class="wallpaper-grid">
+          <div class="wallpaper-option" id="wp0" onclick="selectWallpaper(0)">
+            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&q=70&auto=format" alt="Spa elegante" loading="lazy">
+            <div class="wp-label">Opção 1 — Spa</div>
+            <div class="wallpaper-check">✓</div>
+          </div>
+          <div class="wallpaper-option" id="wp1" onclick="selectWallpaper(1)">
+            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&q=70&auto=format" alt="Tratamento facial" loading="lazy">
+            <div class="wp-label">Opção 2 — Facial</div>
+            <div class="wallpaper-check">✓</div>
+          </div>
+          <div class="wallpaper-option" id="wp2" onclick="selectWallpaper(2)">
+            <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400&q=70&auto=format" alt="Clínica moderna" loading="lazy">
+            <div class="wp-label">Opção 3 — Clínica</div>
+            <div class="wallpaper-check">✓</div>
+          </div>
+          <div class="wallpaper-option" id="wp3" onclick="selectWallpaper(3)">
+            <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&q=70&auto=format" alt="Bem-estar" loading="lazy">
+            <div class="wp-label">Opção 4 — Bem-estar</div>
+            <div class="wallpaper-check">✓</div>
+          </div>
+        </div>
+        <p class="tab-hint" style="margin-top:1.2rem">Ou envie uma foto da clínica do seu computador:</p>
+        <label class="upload-btn">
+          <span>📁</span> Explorar Arquivos
+          <input type="file" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="uploadWallpaper(event)">
+        </label>
+        <p id="uploadName" class="upload-name"></p>
+        <div class="upload-note">
+          <strong>Como funciona:</strong> ao clicar em "Salvar &amp; Publicar", a imagem é enviada automaticamente ao Firebase Storage e o link é salvo no banco de dados. Todos os visitantes verão a nova imagem imediatamente.
+        </div>
+      </div>
+
+      <!-- TAB: TEXTS -->
+      <div class="admin-tab" id="admin-texts">
+        <div class="form-group">
+          <label class="form-label" for="edit-heroTitle">Título Principal (banner)</label>
+          <input type="text" class="form-input" id="edit-heroTitle" maxlength="120">
+          <small class="form-hint">Dica: termine com "você." para que fique em destaque dourado.</small>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit-heroSub">Subtítulo do Banner</label>
+          <textarea class="form-input" id="edit-heroSub" rows="3" maxlength="400"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit-aboutTitle">Título — Seção "A Elcana"</label>
+          <input type="text" class="form-input" id="edit-aboutTitle" maxlength="120">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit-aboutText">Texto — Seção "A Elcana"</label>
+          <textarea class="form-input" id="edit-aboutText" rows="5" maxlength="1000"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit-contactPhrase">Frase — Seção de Contato</label>
+          <textarea class="form-input" id="edit-contactPhrase" rows="3" maxlength="400"></textarea>
+        </div>
+      </div>
+
+      <!-- TAB: PROCEDURES -->
+      <div class="admin-tab" id="admin-procedures">
+        <p class="tab-hint">Adicione, edite ou remova os procedimentos exibidos no site. Máximo de 30 procedimentos.</p>
+        <div class="procedure-list" id="procedureList"></div>
+        <button class="btn-add-proc" onclick="openProcModal(-1)">+ Adicionar Procedimento</button>
+      </div>
+
+      <!-- TAB: CONTACT -->
+      <div class="admin-tab" id="admin-contact">
+        <div class="form-group">
+          <label class="form-label" for="edit-address">Endereço completo</label>
+          <textarea class="form-input" id="edit-address" rows="2" maxlength="200"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit-phone">WhatsApp (somente números com DDD)</label>
+          <input type="tel" class="form-input" id="edit-phone" placeholder="41999538779" maxlength="15">
+          <small class="form-hint">Exemplo: 41999538779 — sem traços, espaços ou parênteses.</small>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit-instagram">Instagram (com @)</label>
+          <input type="text" class="form-input" id="edit-instagram" placeholder="@clinicaelcana" maxlength="50">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit-wppText">Texto do botão WhatsApp</label>
+          <input type="text" class="form-input" id="edit-wppText" placeholder="Falar no WhatsApp" maxlength="60">
+        </div>
+      </div>
+
+    </div><!-- /modal-body -->
+  </div>
+</div>
+
+<!-- ======================================================
+     PROCEDURE EDIT MODAL
+     ====================================================== -->
+<div class="modal-overlay" id="procOverlay" role="dialog" aria-modal="true" aria-label="Editar procedimento">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-header">
+      <h2 class="modal-title" id="procModalTitle">Novo Procedimento</h2>
+      <button class="modal-close" onclick="closeProcModal()" aria-label="Fechar">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label" for="procName">Nome do Procedimento</label>
+        <input type="text" class="form-input" id="procName" placeholder="Ex: Harmonização Facial" maxlength="80">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="procDesc">Descrição</label>
+        <textarea class="form-input" id="procDesc" rows="4" maxlength="500" placeholder="Descreva o procedimento de forma clara e atrativa…"></textarea>
+      </div>
+      <div style="display:flex;gap:1rem;margin-top:0.5rem">
+        <button class="btn-cancel" onclick="closeProcModal()">Cancelar</button>
+        <button class="btn-confirm" onclick="saveProcedure()">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- Firebase SDK (ESM via CDN — sem npm necessário) -->
+<script type="module">
+  // Importa configuração e dados padrão
+</script>
+
+<!-- Carrega config, defaults e app como módulos ES -->
+<script src="js/firebase-config.js"></script>
+<script src="js/data.js"></script>
+<script type="module" src="js/app.js"></script>
+
+</body>
+</html>
