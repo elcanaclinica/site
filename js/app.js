@@ -179,6 +179,7 @@ document.getElementById("adminOverlay").addEventListener("click", function(e) { 
 
 function populateAdminFields() {
   var d=siteData||ELCANA_DEFAULTS.site, t=d.texts||{}, c=d.contact||{}, w=d.wallpaper||{};
+  if(!document.getElementById("edit-heroTitle")) return;
   document.getElementById("edit-heroTitle").value     = t.heroTitle||"";
   document.getElementById("edit-heroSub").value       = t.heroSub||"";
   document.getElementById("edit-aboutTitle").value    = t.aboutTitle||"";
