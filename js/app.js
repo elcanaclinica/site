@@ -553,7 +553,26 @@ function showToast(msg, type) {
   toastTimer = setTimeout(function(){t.classList.remove("show");},5000);
 }
 window.showToast = showToast;
-
+// Expõe funções globais antecipadamente
+window.previewTheme = previewTheme;
+window.selectWallpaper = selectWallpaper;
+window.switchAdminTab = switchAdminTab;
+window.saveAll = saveAll;
+window.doLogin = doLogin;
+window.doLogout = doLogout;
+window.openLoginModal = openLoginModal;
+window.closeLoginModal = closeLoginModal;
+window.closeAdminModal = closeAdminModal;
+window.openProcModal = openProcModal;
+window.closeProcModal = closeProcModal;
+window.saveProcedure = saveProcedure;
+window.deleteProcedure = deleteProcedure;
+window.openBAModal = openBAModal;
+window.closeBAModal = closeBAModal;
+window.saveBAItem = saveBAItem;
+window.deleteBAItem = deleteBAItem;
+window.toggleMobileMenu = toggleMobileMenu;
+window.closeMobileMenu = closeMobileMenu;
 // ── INIT ──
 document.addEventListener("DOMContentLoaded", function() {
   el("footerYear").textContent = new Date().getFullYear();
