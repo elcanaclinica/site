@@ -1,0 +1,621 @@
+/* ============================================================
+   TEMAS MODERNOS — Clínica Elcana
+   Inspirados na linguagem visual da Asimov Academy:
+   dark backgrounds, borda-glow, tipografia bold moderna,
+   badges/tags, grid assimétrico, seções com separadores.
+
+   Tema 7: OBSIDIAN  — preto puro, verde-esmeralda, grid split
+   Tema 8: SLATE     — cinza chumbo, laranja vibrante, cards borda
+   Tema 9: CARBON    — preto grafite, branco+azul elétrico, ultra moderno
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Manrope:wght@300;400;500;600;700;800&family=Cabinet+Grotesk:wght@400;500;700;800;900&display=swap');
+
+/* ============================================================
+   TEMA 7 — OBSIDIAN
+   Preto puro + esmeralda. Hero split: texto esq, badge+imagem dir.
+   Cards com borda brilhante no hover. Separadores com linha glow.
+   ============================================================ */
+body.theme-obsidian {
+  --bg:          #080808;
+  --bg-mid:      #0f0f0f;
+  --bg-card:     #111111;
+  --bg-card-h:   #161616;
+  --primary:     #10b981;
+  --primary-l:   #34d399;
+  --primary-dim: rgba(16,185,129,0.12);
+  --text:        #f5f5f5;
+  --text-muted:  #6b7280;
+  --text-sub:    #9ca3af;
+  --border:      rgba(255,255,255,0.06);
+  --border-h:    rgba(16,185,129,0.5);
+  --glow:        0 0 30px rgba(16,185,129,0.15);
+  --nav-bg:      rgba(8,8,8,0.95);
+  --hero-font:   'Plus Jakarta Sans', sans-serif;
+  --body-font:   'Plus Jakarta Sans', sans-serif;
+  --section-font:'Plus Jakarta Sans', sans-serif;
+  --radius:      12px;
+  --footer-bg:   #050505;
+  --transition:  all 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+
+/* NAV */
+body.theme-obsidian nav {
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 3rem;
+  backdrop-filter: blur(12px);
+}
+body.theme-obsidian nav.scrolled { border-bottom-color: rgba(16,185,129,0.15); }
+body.theme-obsidian .logo {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800; font-size: 1.4rem;
+  letter-spacing: -0.02em; color: #fff;
+}
+body.theme-obsidian .logo span { color: var(--primary); }
+body.theme-obsidian .nav-links a { font-weight: 500; color: var(--text-sub); font-size: 0.82rem; letter-spacing: 0; }
+body.theme-obsidian .nav-links a:hover { color: #fff; }
+body.theme-obsidian .btn-admin {
+  background: var(--primary-dim);
+  border: 1px solid rgba(16,185,129,0.3);
+  color: var(--primary); border-radius: 8px;
+  font-weight: 600; font-size: 0.78rem;
+}
+body.theme-obsidian .btn-admin:hover { background: var(--primary); color: #000; }
+
+/* HERO — split assimétrico */
+body.theme-obsidian .hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+body.theme-obsidian .hero::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%);
+  top: 50%; right: 10%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+body.theme-obsidian .hero-bg {
+  position: relative;
+  grid-column: 2; grid-row: 1;
+  height: 100%;
+  clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+}
+body.theme-obsidian .hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, #080808 0%, transparent 50%);
+}
+body.theme-obsidian .hero-overlay { display: none; }
+body.theme-obsidian .hero-content {
+  grid-column: 1; grid-row: 1;
+  text-align: left;
+  padding: 8rem 3rem 4rem 5vw;
+  z-index: 2;
+  animation: fadeUp 0.9s ease both;
+}
+body.theme-obsidian .hero-label {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--primary-dim);
+  border: 1px solid rgba(16,185,129,0.25);
+  color: var(--primary);
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.35rem 0.9rem; border-radius: 50px;
+  margin-bottom: 2rem;
+}
+body.theme-obsidian .hero-label::before {
+  content: ''; width: 6px; height: 6px;
+  background: var(--primary); border-radius: 50%;
+  animation: blink 2s ease infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+body.theme-obsidian .hero-title {
+  font-size: clamp(2.5rem,4.5vw,4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+body.theme-obsidian .hero-title em {
+  font-style: normal;
+  color: var(--primary);
+}
+body.theme-obsidian .hero-sub {
+  font-size: 1rem; font-weight: 400;
+  color: var(--text-muted);
+  max-width: 460px;
+  line-height: 1.75;
+  margin: 0 0 2.5rem;
+}
+body.theme-obsidian .btn-primary {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700; font-size: 0.82rem;
+  letter-spacing: 0.02em; text-transform: none;
+  border-radius: 10px;
+  padding: 0.85rem 2rem;
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #000;
+}
+body.theme-obsidian .btn-primary:hover {
+  background: var(--primary-l);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(16,185,129,0.3);
+}
+
+/* ABOUT */
+body.theme-obsidian .section { padding: 6rem 5vw; }
+body.theme-obsidian .section::before {
+  content: '';
+  display: block;
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(16,185,129,0.3), transparent);
+  margin-bottom: 6rem;
+}
+body.theme-obsidian .section-label {
+  display: inline-block;
+  background: var(--primary-dim);
+  border: 1px solid rgba(16,185,129,0.2);
+  color: var(--primary);
+  font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 0.3rem 0.8rem; border-radius: 50px;
+  margin-bottom: 1.5rem;
+}
+body.theme-obsidian .section-title {
+  font-size: clamp(2rem,3.5vw,3rem);
+  font-weight: 800; letter-spacing: -0.03em; line-height: 1.1;
+  color: #fff; margin-bottom: 1.5rem;
+}
+body.theme-obsidian .about-grid { grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+body.theme-obsidian .about-text p { color: var(--text-muted); line-height: 1.8; font-size: 0.95rem; }
+body.theme-obsidian .stat-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem; border-left: none;
+  transition: var(--transition);
+}
+body.theme-obsidian .stat-item:hover { border-color: rgba(16,185,129,0.3); box-shadow: var(--glow); }
+body.theme-obsidian .stat-num { font-size: 2.8rem; font-weight: 800; letter-spacing: -0.04em; color: var(--primary); }
+body.theme-obsidian .stat-desc { color: var(--text-muted); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
+
+/* TREATMENTS */
+body.theme-obsidian .treatments-section { background: var(--bg-mid); padding: 6rem 5vw; position: relative; }
+body.theme-obsidian .treatments-section::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(16,185,129,0.2), transparent);
+}
+body.theme-obsidian .treatment-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  transition: var(--transition);
+  position: relative; overflow: hidden;
+}
+body.theme-obsidian .treatment-card::after {
+  content: '';
+  position: absolute;
+  inset: 0; border-radius: var(--radius);
+  border: 1px solid transparent;
+  background: linear-gradient(135deg,rgba(16,185,129,0.3),transparent) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+body.theme-obsidian .treatment-card:hover { background: var(--bg-card-h); transform: translateY(-4px); box-shadow: var(--glow); border-color: rgba(16,185,129,0.2); }
+body.theme-obsidian .treatment-card:hover::after { opacity: 1; }
+body.theme-obsidian .treatment-num { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; color: var(--primary); text-transform: uppercase; margin-bottom: 1.5rem; display: block; }
+body.theme-obsidian .treatment-name { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 0.8rem; color: #fff; }
+body.theme-obsidian .treatment-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; }
+
+/* CONTACT */
+body.theme-obsidian .contact-section { padding: 6rem 5vw; }
+body.theme-obsidian .contact-section::before {
+  content: '';
+  display: block; height: 1px;
+  background: linear-gradient(90deg,transparent,rgba(16,185,129,0.2),transparent);
+  margin-bottom: 6rem;
+}
+body.theme-obsidian .contact-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+}
+body.theme-obsidian .contact-box:hover { border-color: rgba(16,185,129,0.2); }
+body.theme-obsidian .contact-box h3 { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.03em; color: #fff; line-height: 1.2; }
+body.theme-obsidian .contact-icon { border-color: rgba(16,185,129,0.2); background: var(--primary-dim); border-radius: 10px; }
+body.theme-obsidian .contact-info-item h4 { color: var(--primary); }
+body.theme-obsidian .wpp-btn { border-radius: 8px; font-weight: 600; }
+body.theme-obsidian footer { background: var(--footer-bg); border-top: 1px solid var(--border); }
+body.theme-obsidian .footer-logo { color: #fff; font-weight: 800; letter-spacing: -0.02em; }
+
+/* ============================================================
+   TEMA 8 — SLATE
+   Cinza escuro profundo + laranja. Cards com borda lateral colorida.
+   Seções em grid diferente com destaque numérico lateral.
+   ============================================================ */
+body.theme-slate {
+  --bg:          #0d0d0e;
+  --bg-mid:      #131315;
+  --bg-card:     #18181b;
+  --bg-card-h:   #1f1f23;
+  --primary:     #f97316;
+  --primary-l:   #fb923c;
+  --primary-dim: rgba(249,115,22,0.1);
+  --text:        #fafafa;
+  --text-muted:  #71717a;
+  --text-sub:    #a1a1aa;
+  --border:      rgba(255,255,255,0.06);
+  --border-h:    rgba(249,115,22,0.4);
+  --glow:        0 0 30px rgba(249,115,22,0.12);
+  --nav-bg:      rgba(13,13,14,0.96);
+  --hero-font:   'Manrope', sans-serif;
+  --body-font:   'Manrope', sans-serif;
+  --section-font:'Manrope', sans-serif;
+  --radius:      8px;
+  --footer-bg:   #080809;
+  --transition:  all 0.28s ease;
+}
+
+/* NAV */
+body.theme-slate nav {
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+}
+body.theme-slate nav.scrolled { border-bottom-color: rgba(249,115,22,0.15); }
+body.theme-slate .logo { font-weight: 800; letter-spacing: -0.03em; color: var(--text); font-size: 1.4rem; }
+body.theme-slate .nav-links a { font-weight: 500; color: var(--text-sub); font-size: 0.82rem; letter-spacing: 0; }
+body.theme-slate .nav-links a:hover { color: var(--text); }
+body.theme-slate .btn-admin {
+  background: var(--primary); color: #fff;
+  border: none; border-radius: 6px;
+  font-weight: 700; font-size: 0.75rem; letter-spacing: 0.02em;
+  padding: 0.5rem 1.2rem;
+}
+body.theme-slate .btn-admin:hover { background: var(--primary-l); transform: translateY(-1px); }
+
+/* HERO — full-width com badge + texto bold + gradiente sutil */
+body.theme-slate .hero { min-height: 100vh; }
+body.theme-slate .hero-overlay {
+  background: linear-gradient(180deg, rgba(13,13,14,0.8) 0%, rgba(13,13,14,0.6) 60%, rgba(13,13,14,0.95) 100%);
+}
+body.theme-slate .hero-content { text-align: center; max-width: 860px; }
+body.theme-slate .hero-label {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: var(--primary-dim);
+  border: 1px solid rgba(249,115,22,0.3);
+  color: var(--primary);
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.4rem 1rem; border-radius: 6px;
+  margin-bottom: 2rem;
+}
+body.theme-slate .hero-title {
+  font-size: clamp(2.8rem,6vw,5rem);
+  font-weight: 800; line-height: 1.05;
+  letter-spacing: -0.04em; color: #fff;
+  margin-bottom: 1.5rem;
+}
+body.theme-slate .hero-title em { font-style: normal; color: var(--primary); }
+body.theme-slate .hero-sub {
+  font-size: 1.05rem; font-weight: 400;
+  color: var(--text-sub); max-width: 520px;
+  line-height: 1.7; margin: 0 auto 3rem;
+}
+body.theme-slate .btn-primary {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700; font-size: 0.88rem;
+  text-transform: none; letter-spacing: 0;
+  border-radius: 8px; padding: 0.9rem 2.2rem;
+  background: var(--primary); border-color: var(--primary); color: #fff;
+}
+body.theme-slate .btn-primary:hover { background: var(--primary-l); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(249,115,22,0.35); }
+
+/* ABOUT — números grandes no lado */
+body.theme-slate .section { padding: 7rem 5vw; }
+body.theme-slate .about-grid { grid-template-columns: 1fr 1fr; gap: 5rem; }
+body.theme-slate .section-label {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  color: var(--primary); font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;
+}
+body.theme-slate .section-label::before {
+  content: ''; width: 20px; height: 2px; background: var(--primary);
+}
+body.theme-slate .section-title {
+  font-size: clamp(2rem,3.5vw,3rem);
+  font-weight: 800; letter-spacing: -0.035em; line-height: 1.1;
+  color: var(--text); margin-bottom: 1.5rem;
+}
+body.theme-slate .about-text p { color: var(--text-muted); line-height: 1.8; font-size: 0.95rem; }
+body.theme-slate .stat-item {
+  border-left: 3px solid var(--primary);
+  padding-left: 1.5rem; background: none;
+}
+body.theme-slate .stat-num { font-size: 3rem; font-weight: 800; letter-spacing: -0.04em; color: var(--text); }
+body.theme-slate .stat-desc { color: var(--text-muted); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* TREATMENTS — cards com borda lateral laranja */
+body.theme-slate .treatments-section { background: var(--bg-mid); padding: 7rem 5vw; }
+body.theme-slate .treatment-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid transparent;
+  border-radius: var(--radius);
+  padding: 2rem;
+  transition: var(--transition);
+}
+body.theme-slate .treatment-card:hover {
+  background: var(--bg-card-h);
+  border-left-color: var(--primary);
+  transform: translateX(4px);
+  box-shadow: -4px 0 20px rgba(249,115,22,0.1);
+}
+body.theme-slate .treatment-num {
+  font-size: 0.6rem; font-weight: 800;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--primary); margin-bottom: 1.2rem; display: block;
+}
+body.theme-slate .treatment-name { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.8rem; letter-spacing: -0.01em; }
+body.theme-slate .treatment-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; }
+
+/* CONTACT */
+body.theme-slate .contact-section { padding: 7rem 5vw; border-top: 1px solid var(--border); }
+body.theme-slate .contact-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 2.5rem;
+}
+body.theme-slate .contact-box h3 { font-weight: 800; letter-spacing: -0.02em; color: var(--text); line-height: 1.2; }
+body.theme-slate .contact-icon { border-radius: var(--radius); border-color: rgba(249,115,22,0.2); background: var(--primary-dim); }
+body.theme-slate .contact-info-item h4 { color: var(--primary); }
+body.theme-slate .wpp-btn { border-radius: var(--radius); font-weight: 700; }
+body.theme-slate footer { background: var(--footer-bg); border-top: 1px solid var(--border); }
+body.theme-slate .footer-logo { color: var(--text); font-weight: 800; letter-spacing: -0.02em; }
+
+/* ============================================================
+   TEMA 9 — CARBON
+   Preto grafite + azul elétrico. Layout ultra-moderno.
+   Hero com título fragmentado e detalhe técnico.
+   Cards com efeito scan line sutil.
+   ============================================================ */
+body.theme-carbon {
+  --bg:          #09090b;
+  --bg-mid:      #0f0f12;
+  --bg-card:     #141417;
+  --bg-card-h:   #1a1a1f;
+  --primary:     #3b82f6;
+  --primary-l:   #60a5fa;
+  --primary-dim: rgba(59,130,246,0.1);
+  --text:        #f8fafc;
+  --text-muted:  #64748b;
+  --text-sub:    #94a3b8;
+  --border:      rgba(255,255,255,0.05);
+  --border-h:    rgba(59,130,246,0.4);
+  --glow:        0 0 40px rgba(59,130,246,0.12);
+  --nav-bg:      rgba(9,9,11,0.97);
+  --hero-font:   'Cabinet Grotesk', 'Manrope', sans-serif;
+  --body-font:   'Manrope', sans-serif;
+  --section-font:'Cabinet Grotesk', 'Manrope', sans-serif;
+  --radius:      10px;
+  --footer-bg:   #050507;
+  --transition:  all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* NAV */
+body.theme-carbon nav {
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+}
+body.theme-carbon nav.scrolled {
+  border-bottom-color: rgba(59,130,246,0.12);
+  box-shadow: 0 1px 0 rgba(59,130,246,0.08);
+}
+body.theme-carbon .logo {
+  font-weight: 900; letter-spacing: -0.04em; color: var(--text);
+  font-size: 1.45rem;
+}
+body.theme-carbon .nav-links a { font-weight: 500; color: var(--text-sub); font-size: 0.82rem; letter-spacing: 0; }
+body.theme-carbon .nav-links a:hover { color: var(--text); }
+body.theme-carbon .btn-admin {
+  background: transparent;
+  border: 1px solid rgba(59,130,246,0.4);
+  color: var(--primary); border-radius: 8px;
+  font-weight: 600; font-size: 0.76rem;
+}
+body.theme-carbon .btn-admin:hover { background: var(--primary); color: #fff; }
+
+/* HERO — com elemento técnico + grid 60/40 */
+body.theme-carbon .hero {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  min-height: 100vh;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+body.theme-carbon .hero::after {
+  content: '';
+  position: absolute;
+  width: 800px; height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59,130,246,0.07) 0%, transparent 60%);
+  top: 50%; right: -10%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+body.theme-carbon .hero-bg {
+  position: relative;
+  grid-column: 2; grid-row: 1;
+  height: 100%;
+}
+body.theme-carbon .hero-bg::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to right, #09090b 0%, rgba(9,9,11,0.4) 100%);
+}
+body.theme-carbon .hero-overlay { display: none; }
+body.theme-carbon .hero-content {
+  grid-column: 1; grid-row: 1;
+  text-align: left;
+  padding: 8rem 4rem 4rem 5vw;
+  z-index: 2;
+  animation: fadeUp 0.9s ease both;
+}
+body.theme-carbon .hero-label {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  color: var(--primary);
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  margin-bottom: 2rem;
+  border: none; background: none; padding: 0;
+}
+body.theme-carbon .hero-label::before {
+  content: '';
+  width: 28px; height: 1px; background: var(--primary);
+}
+body.theme-carbon .hero-title {
+  font-size: clamp(2.8rem,5vw,4.5rem);
+  font-weight: 900; line-height: 1.0;
+  letter-spacing: -0.04em; color: var(--text);
+  margin-bottom: 1.5rem;
+}
+body.theme-carbon .hero-title em {
+  font-style: normal;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--primary);
+}
+body.theme-carbon .hero-sub {
+  font-size: 0.95rem; font-weight: 400;
+  color: var(--text-muted); max-width: 440px;
+  line-height: 1.8; margin: 0 0 2.5rem;
+}
+body.theme-carbon .btn-primary {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700; font-size: 0.82rem;
+  text-transform: none; letter-spacing: 0;
+  border-radius: 8px; padding: 0.85rem 2rem;
+  background: var(--primary); border-color: var(--primary); color: #fff;
+}
+body.theme-carbon .btn-primary:hover {
+  background: var(--primary-l);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(59,130,246,0.35);
+}
+
+/* ABOUT */
+body.theme-carbon .section { padding: 7rem 5vw; }
+body.theme-carbon .section-label {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  color: var(--primary); font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.2rem;
+  border: none; background: none; padding: 0;
+}
+body.theme-carbon .section-label::before {
+  content: ''; width: 16px; height: 1.5px; background: var(--primary);
+}
+body.theme-carbon .section-title {
+  font-size: clamp(2rem,3.5vw,3.2rem);
+  font-weight: 900; letter-spacing: -0.04em; line-height: 1.05;
+  color: var(--text); margin-bottom: 1.5rem;
+}
+body.theme-carbon .about-grid { grid-template-columns: 1fr 1fr; gap: 5rem; }
+body.theme-carbon .about-text p { color: var(--text-muted); line-height: 1.8; font-size: 0.95rem; font-weight: 400; }
+body.theme-carbon .stat-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem; border-left: none;
+  transition: var(--transition);
+  position: relative; overflow: hidden;
+}
+body.theme-carbon .stat-item::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--primary), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+body.theme-carbon .stat-item:hover { border-color: rgba(59,130,246,0.2); }
+body.theme-carbon .stat-item:hover::before { opacity: 1; }
+body.theme-carbon .stat-num { font-size: 2.8rem; font-weight: 900; letter-spacing: -0.05em; color: var(--text); }
+body.theme-carbon .stat-desc { color: var(--text-muted); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* TREATMENTS */
+body.theme-carbon .treatments-section { background: var(--bg-mid); padding: 7rem 5vw; }
+body.theme-carbon .treatment-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 2rem;
+  transition: var(--transition); position: relative; overflow: hidden;
+}
+body.theme-carbon .treatment-card::before {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-l));
+  transform: scaleX(0);
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  transform-origin: left;
+}
+body.theme-carbon .treatment-card:hover { background: var(--bg-card-h); border-color: rgba(59,130,246,0.15); transform: translateY(-4px); box-shadow: var(--glow); }
+body.theme-carbon .treatment-card:hover::before { transform: scaleX(1); }
+body.theme-carbon .treatment-num { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; color: var(--primary); margin-bottom: 1.5rem; display: block; }
+body.theme-carbon .treatment-name { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.8rem; letter-spacing: -0.01em; }
+body.theme-carbon .treatment-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; }
+
+/* CONTACT */
+body.theme-carbon .contact-section { padding: 7rem 5vw; border-top: 1px solid var(--border); }
+body.theme-carbon .contact-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 2.5rem;
+}
+body.theme-carbon .contact-box h3 { font-weight: 900; letter-spacing: -0.03em; color: var(--text); line-height: 1.2; }
+body.theme-carbon .contact-icon { border-radius: var(--radius); border-color: rgba(59,130,246,0.2); background: var(--primary-dim); }
+body.theme-carbon .contact-info-item h4 { color: var(--primary); }
+body.theme-carbon .wpp-btn { border-radius: var(--radius); font-weight: 600; }
+body.theme-carbon footer { background: var(--footer-bg); border-top: 1px solid var(--border); }
+body.theme-carbon .footer-logo { color: var(--text); font-weight: 900; letter-spacing: -0.03em; }
+
+/* ============================================================
+   RESPONSIVO — 3 NOVOS TEMAS
+   ============================================================ */
+@media (max-width: 900px) {
+  body.theme-obsidian .hero,
+  body.theme-carbon .hero { grid-template-columns: 1fr; }
+  body.theme-obsidian .hero-bg,
+  body.theme-carbon .hero-bg { grid-column: 1; grid-row: 1; clip-path: none; position: absolute; opacity: 0.4; }
+  body.theme-obsidian .hero-overlay,
+  body.theme-carbon .hero-bg::before { display: block; }
+  body.theme-obsidian .hero-content,
+  body.theme-carbon .hero-content { grid-column: 1; padding: 8rem 2rem 4rem; text-align: center; }
+  body.theme-obsidian .hero-sub,
+  body.theme-carbon .hero-sub { margin: 0 auto 2.5rem; }
+  body.theme-obsidian .btn-primary { margin: 0 auto; display: block; text-align: center; }
+  body.theme-obsidian .section,
+  body.theme-slate .section,
+  body.theme-carbon .section { padding: 5rem 1.5rem; }
+  body.theme-obsidian .treatments-section,
+  body.theme-slate .treatments-section,
+  body.theme-carbon .treatments-section { padding: 5rem 1.5rem; }
+  body.theme-obsidian .contact-section,
+  body.theme-slate .contact-section,
+  body.theme-carbon .contact-section { padding: 5rem 1.5rem; }
+}

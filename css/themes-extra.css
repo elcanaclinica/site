@@ -1,0 +1,608 @@
+/* ============================================================
+   TEMAS EXTRAS — Clínica Elcana
+   Tema 4: AURORA  — lateral split, gradiente vivo
+   Tema 5: MINIMAL — ultra clean, assimétrico, tipografia gigante
+   Tema 6: NEON    — dark futurista, neon rosa/ciano
+   ============================================================ */
+
+/* ── AURORA ── */
+body.theme-aurora {
+  --bg:          #0f0c1a;
+  --bg-mid:      #160f28;
+  --bg-card:     rgba(255,255,255,0.04);
+  --primary:     #a78bfa;
+  --primary-l:   #c4b5fd;
+  --text:        #f0ebff;
+  --text-muted:  #8b7bb0;
+  --border:      rgba(167,139,250,0.18);
+  --border-h:    rgba(167,139,250,0.5);
+  --overlay:     linear-gradient(120deg,rgba(15,12,26,0.92) 0%,rgba(88,28,135,0.5) 100%);
+  --nav-bg:      rgba(15,12,26,0.95);
+  --hero-font:   'Syne', sans-serif;
+  --body-font:   'DM Sans', sans-serif;
+  --section-font:'Syne', sans-serif;
+  --radius:      16px;
+  --card-shadow: 0 0 40px rgba(167,139,250,0.08);
+  --footer-bg:   #080611;
+  --transition:  all 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+
+/* ── MINIMAL ── */
+body.theme-minimal {
+  --bg:          #f9f7f4;
+  --bg-mid:      #f0ede8;
+  --bg-card:     #ffffff;
+  --primary:     #1a1a1a;
+  --primary-l:   #333333;
+  --text:        #1a1a1a;
+  --text-muted:  #888888;
+  --border:      rgba(0,0,0,0.08);
+  --border-h:    rgba(0,0,0,0.25);
+  --overlay:     linear-gradient(180deg,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.1) 100%);
+  --nav-bg:      rgba(249,247,244,0.98);
+  --hero-font:   'Space Grotesk', sans-serif;
+  --body-font:   'Space Grotesk', sans-serif;
+  --section-font:'Space Grotesk', sans-serif;
+  --radius:      4px;
+  --card-shadow: none;
+  --footer-bg:   #1a1a1a;
+  --transition:  all 0.3s ease;
+}
+
+/* ── NEON ── */
+body.theme-neon {
+  --bg:          #070510;
+  --bg-mid:      #0c0918;
+  --bg-card:     rgba(255,255,255,0.03);
+  --primary:     #f472b6;
+  --primary-l:   #fb7ec4;
+  --primary-alt: #22d3ee;
+  --text:        #faf5ff;
+  --text-muted:  #9ca3af;
+  --border:      rgba(244,114,182,0.15);
+  --border-h:    rgba(244,114,182,0.5);
+  --overlay:     linear-gradient(135deg,rgba(7,5,16,0.92),rgba(7,5,16,0.55));
+  --nav-bg:      rgba(7,5,16,0.97);
+  --hero-font:   'Oxanium', cursive;
+  --body-font:   'Inter', sans-serif;
+  --section-font:'Oxanium', cursive;
+  --radius:      0px;
+  --card-shadow: 0 0 0 1px rgba(244,114,182,0.2), 0 0 30px rgba(244,114,182,0.06);
+  --footer-bg:   #030208;
+  --transition:  all 0.3s ease;
+}
+
+/* ============================================================
+   FONTES EXTRAS (Google Fonts)
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Space+Grotesk:wght@300;400;500;600;700&family=Oxanium:wght@300;400;500;600;700&display=swap');
+
+/* ============================================================
+   TEMA AURORA — layout split diagonal + glassmorphism
+   ============================================================ */
+
+/* Hero split diagonal */
+body.theme-aurora .hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  align-items: stretch;
+}
+body.theme-aurora .hero-bg {
+  grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  clip-path: polygon(8% 0, 100% 0, 100% 100%, 0% 100%);
+}
+body.theme-aurora .hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg,rgba(88,28,135,0.6),transparent);
+}
+body.theme-aurora .hero-overlay {
+  display: none;
+}
+body.theme-aurora .hero-content {
+  grid-column: 1;
+  grid-row: 1;
+  text-align: left;
+  padding: 10rem 4rem 4rem;
+  z-index: 2;
+  animation: fadeUp 1s ease both;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+body.theme-aurora .hero-label {
+  color: var(--primary);
+  letter-spacing: 0.2em;
+  margin-bottom: 1.5rem;
+}
+body.theme-aurora .hero-title {
+  font-size: clamp(2.8rem,5vw,4.2rem);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+body.theme-aurora .hero-title em {
+  font-style: normal;
+  background: linear-gradient(135deg,#a78bfa,#22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+body.theme-aurora .hero-sub {
+  color: var(--text-muted);
+  margin: 0 0 2.5rem;
+  max-width: 400px;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+body.theme-aurora .btn-primary {
+  align-self: flex-start;
+  background: linear-gradient(135deg,#7c3aed,#0ea5e9);
+  border: none;
+  color: #fff;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 0.9rem 2.2rem;
+}
+body.theme-aurora .btn-primary:hover {
+  opacity: 0.88;
+  transform: translateY(-2px);
+}
+
+/* About — cards com glass */
+body.theme-aurora .about-grid {
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+  align-items: start;
+}
+body.theme-aurora .stat-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  border-left: none;
+  backdrop-filter: blur(10px);
+}
+body.theme-aurora .stat-num { color: var(--primary); }
+body.theme-aurora .section-title { font-weight: 800; letter-spacing: -0.03em; }
+
+/* Treatment cards — glassmorphism */
+body.theme-aurora .treatment-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  position: relative;
+  overflow: hidden;
+}
+body.theme-aurora .treatment-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,#7c3aed,#0ea5e9);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+body.theme-aurora .treatment-card:hover::after { opacity: 1; }
+body.theme-aurora .treatment-num {
+  color: rgba(167,139,250,0.2);
+  font-size: 4rem;
+}
+
+/* Nav aurora */
+body.theme-aurora nav .logo {
+  font-weight: 800;
+  background: linear-gradient(135deg,#a78bfa,#22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+body.theme-aurora .btn-admin {
+  border-radius: 50px;
+  border-color: var(--primary);
+  font-weight: 600;
+}
+
+/* Footer aurora */
+body.theme-aurora footer { background: linear-gradient(135deg,#080611,#0f0c1a); }
+body.theme-aurora .footer-logo {
+  background: linear-gradient(135deg,#a78bfa,#22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+}
+
+/* ============================================================
+   TEMA MINIMAL — tipografia gigante assimétrica
+   ============================================================ */
+
+/* Hero full-height centrado com texto gigante */
+body.theme-minimal .hero { min-height: 100vh; }
+body.theme-minimal .hero-content {
+  max-width: 100%;
+  padding: 0 8vw;
+  text-align: left;
+}
+body.theme-minimal .hero-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 3rem;
+}
+body.theme-minimal .hero-title {
+  font-size: clamp(4rem,10vw,9rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  margin-bottom: 3rem;
+  color: #fff;
+}
+body.theme-minimal .hero-title em {
+  font-style: normal;
+  color: #fff;
+  -webkit-text-stroke: 2px rgba(255,255,255,0.8);
+  -webkit-text-fill-color: transparent;
+}
+body.theme-minimal .hero-sub {
+  max-width: 380px;
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.65);
+  margin: 0 0 3rem;
+}
+body.theme-minimal .btn-primary {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  border-width: 1.5px;
+  border-color: rgba(255,255,255,0.6);
+  color: #fff;
+}
+body.theme-minimal .btn-primary:hover { background: #fff; color: #1a1a1a; }
+
+/* Seção about — texto grande + linha lateral */
+body.theme-minimal .section { padding: 8rem 8vw; }
+body.theme-minimal .about-grid {
+  grid-template-columns: 0.6fr 1fr;
+  gap: 8rem;
+  align-items: start;
+}
+body.theme-minimal .section-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  letter-spacing: 0.3em;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  margin-bottom: 0;
+  height: 100px;
+}
+body.theme-minimal .section-title {
+  font-size: clamp(2.5rem,5vw,4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin-bottom: 3rem;
+}
+body.theme-minimal .about-text p {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+body.theme-minimal .stat-item {
+  border-left: 3px solid var(--text);
+  padding-left: 1.2rem;
+}
+body.theme-minimal .stat-num {
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--text);
+}
+body.theme-minimal .stat-desc { color: var(--text-muted); font-weight: 400; }
+
+/* Treatments — grid horizontal scrollável em desktop */
+body.theme-minimal .treatments-section {
+  background: var(--bg);
+  padding: 8rem 0;
+}
+body.theme-minimal .treatments-section .section-inner { max-width: none; padding: 0 8vw; }
+body.theme-minimal .treatments-grid {
+  display: flex;
+  gap: 0;
+  margin-top: 4rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 1rem;
+}
+body.theme-minimal .treatment-card {
+  min-width: 320px;
+  max-width: 320px;
+  border-radius: 0;
+  border-right: none;
+  border-top: 2px solid var(--text);
+  border-bottom: none;
+  border-left: none;
+  scroll-snap-align: start;
+  padding: 2rem;
+  background: transparent;
+  flex-shrink: 0;
+}
+body.theme-minimal .treatment-card:last-child { border-right: 2px solid var(--text); }
+body.theme-minimal .treatment-card:hover { transform: none; box-shadow: none; background: var(--bg-mid); }
+body.theme-minimal .treatment-num {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+}
+body.theme-minimal .treatment-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+body.theme-minimal .treatment-desc { font-size: 0.85rem; line-height: 1.8; font-weight: 300; }
+
+/* Contact minimal */
+body.theme-minimal .contact-section { padding: 8rem 8vw; }
+body.theme-minimal .contact-grid {
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-top: 4rem;
+}
+body.theme-minimal .contact-box {
+  border: none;
+  border-top: 3px solid var(--text);
+  border-radius: 0;
+  padding: 2rem 0;
+  background: transparent;
+}
+body.theme-minimal .contact-box h3 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+/* Nav minimal */
+body.theme-minimal .logo {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: 1.5rem;
+}
+body.theme-minimal .btn-admin { border-radius: 0; font-weight: 600; }
+body.theme-minimal footer .footer-logo { font-weight: 700; }
+
+/* ============================================================
+   TEMA NEON — dark futurista, grid cyberpunk
+   ============================================================ */
+
+/* Hero — split vertical com linha neon */
+body.theme-neon .hero { overflow: hidden; }
+body.theme-neon .hero::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom,transparent,#f472b6,#22d3ee,transparent);
+  z-index: 3;
+  opacity: 0.4;
+}
+body.theme-neon .hero-content {
+  max-width: 780px;
+  text-align: left;
+  padding: 0 5vw;
+}
+body.theme-neon .hero-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  color: var(--primary-alt, #22d3ee);
+  text-transform: uppercase;
+  border-left: 2px solid var(--primary-alt, #22d3ee);
+  padding-left: 0.8rem;
+  margin-bottom: 2rem;
+}
+body.theme-neon .hero-title {
+  font-size: clamp(3rem,7vw,6rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+body.theme-neon .hero-title em {
+  font-style: normal;
+  color: var(--primary);
+  text-shadow: 0 0 30px rgba(244,114,182,0.5);
+}
+body.theme-neon .hero-sub {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  max-width: 440px;
+  margin: 0 0 2.5rem;
+  font-weight: 300;
+  line-height: 1.9;
+}
+body.theme-neon .btn-primary {
+  font-family: var(--body-font);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  border-color: var(--primary);
+  color: var(--primary);
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  border-radius: 0;
+  padding: 0.9rem 2.5rem;
+}
+body.theme-neon .btn-primary:hover {
+  background: var(--primary);
+  color: var(--bg);
+  box-shadow: 0 0 20px rgba(244,114,182,0.4);
+}
+
+/* About — colunas com separador neon */
+body.theme-neon .about-grid {
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  position: relative;
+}
+body.theme-neon .about-grid::before {
+  content: '';
+  position: absolute;
+  left: 50%; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom,var(--primary),var(--primary-alt,#22d3ee));
+  opacity: 0.3;
+}
+body.theme-neon .stat-item {
+  border-left: 2px solid var(--primary);
+  box-shadow: -4px 0 12px rgba(244,114,182,0.12);
+}
+body.theme-neon .stat-num {
+  color: var(--primary);
+  text-shadow: 0 0 20px rgba(244,114,182,0.4);
+}
+body.theme-neon .section-title {
+  font-size: clamp(2rem,4vw,3.2rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Treatments — cards neon border */
+body.theme-neon .treatments-section { background: var(--bg-mid); }
+body.theme-neon .treatment-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  position: relative;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  border-radius: 0;
+}
+body.theme-neon .treatment-card::before {
+  background: transparent;
+}
+body.theme-neon .treatment-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 20px rgba(244,114,182,0.15), inset 0 0 20px rgba(244,114,182,0.03);
+  transform: none;
+}
+body.theme-neon .treatment-num {
+  color: rgba(244,114,182,0.15);
+  font-size: 3.5rem;
+  text-shadow: none;
+}
+body.theme-neon .treatment-name {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+body.theme-neon .treatment-card:hover .treatment-name {
+  color: var(--primary);
+}
+
+/* Contact neon */
+body.theme-neon .contact-box {
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  border-radius: 0;
+}
+body.theme-neon .contact-box:hover {
+  border-color: var(--primary-alt, #22d3ee);
+  box-shadow: 0 0 30px rgba(34,211,238,0.1);
+}
+body.theme-neon .contact-info-item h4 { color: var(--primary-alt, #22d3ee); }
+body.theme-neon .wpp-btn {
+  clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+  border-radius: 0;
+}
+
+/* Nav neon */
+body.theme-neon .logo {
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-shadow: 0 0 20px rgba(244,114,182,0.3);
+}
+body.theme-neon .btn-admin {
+  clip-path: polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);
+  border-radius: 0;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+body.theme-neon nav.scrolled {
+  border-bottom-color: rgba(244,114,182,0.2);
+  box-shadow: 0 2px 20px rgba(244,114,182,0.08);
+}
+
+/* Footer neon */
+body.theme-neon footer {
+  border-top-color: rgba(244,114,182,0.15);
+}
+body.theme-neon .footer-logo {
+  color: var(--primary);
+  text-shadow: 0 0 16px rgba(244,114,182,0.4);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   BOTÃO FLUTUANTE — ajuste de posição para não conflitar
+   com toast centralizado
+   ============================================================ */
+.wpp-float {
+  bottom: 2rem;
+  right: 2rem;
+}
+body.theme-neon .wpp-float {
+  clip-path: none;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(37,211,102,0.3), 0 0 20px rgba(37,211,102,0.3);
+}
+body.theme-aurora .wpp-float {
+  box-shadow: 0 0 0 1px rgba(37,211,102,0.3), 0 0 20px rgba(37,211,102,0.2);
+}
+
+/* ============================================================
+   RESPONSIVO EXTRA TEMAS
+   ============================================================ */
+@media (max-width: 900px) {
+  body.theme-aurora .hero { grid-template-columns: 1fr; min-height: 100vh; }
+  body.theme-aurora .hero-bg { grid-column: 1; grid-row: 1; clip-path: none; position: absolute; }
+  body.theme-aurora .hero-overlay { display: block; }
+  body.theme-aurora .hero-content { grid-column: 1; padding: 8rem 2rem 4rem; }
+  body.theme-aurora .hero-title { font-size: 2.6rem; }
+  body.theme-aurora .btn-primary { align-self: center; }
+
+  body.theme-minimal .hero-title { font-size: 3.5rem; }
+  body.theme-minimal .section { padding: 5rem 1.5rem; }
+  body.theme-minimal .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  body.theme-minimal .treatments-section .section-inner { padding: 0 1.5rem; }
+  body.theme-minimal .treatments-grid { flex-direction: column; }
+  body.theme-minimal .treatment-card { min-width: 100%; max-width: 100%; }
+  body.theme-minimal .contact-section { padding: 5rem 1.5rem; }
+
+  body.theme-neon .hero-title { font-size: 2.8rem; }
+  body.theme-neon .hero::before { display: none; }
+  body.theme-neon .about-grid::before { display: none; }
+}

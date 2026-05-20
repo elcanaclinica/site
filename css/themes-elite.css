@@ -1,0 +1,654 @@
+/* ============================================================
+   TEMAS ELITE — 3 finais completamente fora da caixa
+   Tema 10: LUMIÈRE  — editorial de luxo claro, ouro, serif italiana
+   Tema 11: ECLIPSE  — dark magenta/violeta com animações
+   Tema 12: STUDIO   — dark moderno estilo tech/saas
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Italiana&family=DM+Serif+Display:ital@0;1&family=Unbounded:wght@300;400;600;700;900&display=swap');
+
+/* ── ANIMAÇÕES COMPARTILHADAS ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.16,1,0.3,1);
+}
+.fade-up.in-view { opacity: 1; transform: translateY(0); }
+.fade-up[data-delay="1"] { transition-delay: 0.1s; }
+.fade-up[data-delay="2"] { transition-delay: 0.2s; }
+.fade-up[data-delay="3"] { transition-delay: 0.3s; }
+.fade-up[data-delay="4"] { transition-delay: 0.45s; }
+.fade-up[data-delay="5"] { transition-delay: 0.6s; }
+
+.char-reveal .char {
+  display: inline-block;
+  transform: translateY(100%) rotate(6deg);
+  opacity: 0;
+  transition: transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.5s ease;
+}
+.char-reveal.in-view .char {
+  transform: translateY(0) rotate(0deg);
+  opacity: 1;
+}
+
+/* ── SEÇÃO ANTES & DEPOIS ── */
+.beforeafter-section { padding: 7rem 3rem; }
+.beforeafter-section .section-inner { max-width: 1200px; margin: 0 auto; }
+.ba-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem; margin-top: 4rem;
+}
+.ba-card {
+  position: relative; border-radius: 16px;
+  overflow: hidden; aspect-ratio: 3/4;
+  cursor: ew-resize; user-select: none;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  background: #1a1a1a;
+}
+.ba-before, .ba-after {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+}
+.ba-after { clip-path: inset(0 50% 0 0); transition: clip-path 0s; }
+.ba-divider {
+  position: absolute; top:0; bottom:0;
+  left: 50%; width: 2px; background: #fff;
+  transform: translateX(-50%); z-index: 10; pointer-events: none;
+}
+.ba-handle {
+  position: absolute; top:50%; left:50%;
+  transform: translate(-50%,-50%);
+  width:44px; height:44px; border-radius:50%;
+  background:#fff; display:flex; align-items:center; justify-content:center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3); z-index:11; pointer-events:none;
+  font-size: 0.55rem; font-weight: 900; color: #111; letter-spacing: -0.05em;
+  gap: 2px;
+}
+.ba-labels {
+  position:absolute; bottom:1.2rem; left:0; right:0;
+  display:flex; justify-content:space-between;
+  padding:0 1rem; pointer-events:none; z-index:12;
+}
+.ba-label {
+  font-size:0.62rem; font-weight:700; letter-spacing:0.15em;
+  text-transform:uppercase; color:#fff;
+  background:rgba(0,0,0,0.55); backdrop-filter:blur(6px);
+  padding:0.3rem 0.7rem; border-radius:4px;
+}
+.ba-card-footer {
+  position:absolute; top:1rem; left:50%; transform:translateX(-50%);
+  white-space:nowrap; font-size:0.65rem; font-weight:600;
+  letter-spacing:0.1em; text-transform:uppercase;
+  color:#fff; background:rgba(0,0,0,0.5); backdrop-filter:blur(8px);
+  padding:0.35rem 1rem; border-radius:50px; z-index:12; pointer-events:none;
+}
+.ba-placeholder {
+  position:absolute; inset:0;
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:0.8rem;
+  background: rgba(255,255,255,0.04);
+}
+.ba-placeholder-icon {
+  width:50px; height:50px; border-radius:50%;
+  border:1.5px dashed rgba(255,255,255,0.2);
+  display:flex; align-items:center; justify-content:center; font-size:1.3rem;
+}
+.ba-placeholder p {
+  font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;
+  color:rgba(255,255,255,0.3); text-align:center; padding:0 1rem;
+}
+
+/* ============================================================
+   TEMA 10 — LUMIÈRE
+   Visual: Branco puro, ouro, fontes Italiana + DM Serif
+   Layout: hero full-screen com imagem em paralaxe, texto em caixa
+   flutuante com fundo semitransparente sobre a imagem.
+   Seções alternadas branco/creme. Divisores dourados.
+   ============================================================ */
+body.theme-lumiere {
+  --bg:          #fdfcfa;
+  --bg-mid:      #f7f3ed;
+  --bg-card:     #ffffff;
+  --primary:     #a07830;
+  --primary-l:   #c49a50;
+  --text:        #1c1814;
+  --text-muted:  #7a6e62;
+  --text-sub:    #b0a090;
+  --border:      rgba(160,120,48,0.18);
+  --nav-bg:      rgba(253,252,250,0.95);
+  --hero-font:   'Italiana', serif;
+  --body-font:   'DM Sans', sans-serif;
+  --section-font:'DM Serif Display', serif;
+  --radius:      0px;
+  --footer-bg:   #1c1814;
+  --transition:  all 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+body.theme-lumiere { font-family:'DM Sans',sans-serif; }
+
+/* NAV */
+body.theme-lumiere nav {
+  background: var(--nav-bg);
+  border-bottom: 1px solid rgba(160,120,48,0.15);
+  backdrop-filter: blur(12px);
+}
+body.theme-lumiere .logo {
+  font-family:'Italiana',serif; font-size:2.2rem;
+  font-weight:400; letter-spacing:0.2em; color:var(--text);
+}
+body.theme-lumiere .nav-links a {
+  color:var(--text-muted); font-size:0.78rem;
+  letter-spacing:0.06em; font-weight:300;
+}
+body.theme-lumiere .nav-links a:hover { color:var(--primary); }
+body.theme-lumiere .btn-admin {
+  border:1px solid var(--primary); color:var(--primary);
+  background:transparent; font-weight:400; font-size:0.72rem;
+  letter-spacing:0.12em;
+}
+body.theme-lumiere .btn-admin:hover { background:var(--primary); color:#fff; }
+
+/* HERO — imagem em fundo, caixa texto flutuante */
+body.theme-lumiere .hero { min-height:100vh; }
+body.theme-lumiere .hero-overlay {
+  background:linear-gradient(to bottom, rgba(28,24,20,0.3) 0%, rgba(28,24,20,0.6) 100%);
+}
+body.theme-lumiere .hero-content {
+  background:rgba(253,252,250,0.92);
+  backdrop-filter:blur(2px);
+  padding:4rem 4rem;
+  max-width:580px;
+  text-align:left;
+  margin-left:8vw;
+  border-left:2px solid var(--primary);
+  animation: fadeUp 1s ease both;
+}
+body.theme-lumiere .hero-label {
+  font-size:0.6rem; font-weight:400; letter-spacing:0.4em;
+  text-transform:uppercase; color:var(--primary);
+  margin-bottom:2rem; display:block;
+}
+body.theme-lumiere .hero-title {
+  font-family:'Italiana',serif; font-size:clamp(1.8rem,3vw,2.8rem);
+  font-weight:400; line-height:1.05; letter-spacing:0.06em;
+  color:var(--text); margin-bottom:1.5rem;
+}
+body.theme-lumiere .hero-title em { font-style:italic; color:var(--primary); }
+body.theme-lumiere .hero-sub {
+  font-size:0.9rem; font-weight:300; color:var(--text-muted);
+  line-height:2; margin:0 0 2.5rem; letter-spacing:0.02em;
+}
+body.theme-lumiere .btn-primary {
+  font-family:'DM Sans',sans-serif; font-size:0.72rem;
+  font-weight:400; letter-spacing:0.22em; text-transform:uppercase;
+  border:1px solid var(--primary); color:var(--primary);
+  background:transparent; padding:1rem 2.5rem;
+}
+body.theme-lumiere .btn-primary:hover { background:var(--primary); color:#fff; }
+
+/* ABOUT */
+body.theme-lumiere .section { padding:8rem 8vw; background:var(--bg); }
+body.theme-lumiere .section-label {
+  font-family:'DM Sans',sans-serif; font-size:0.6rem;
+  font-weight:400; letter-spacing:0.35em; text-transform:uppercase;
+  color:var(--primary); margin-bottom:1.5rem;
+}
+body.theme-lumiere .section-title {
+  font-family:'DM Serif Display',serif; font-size:clamp(2rem,4vw,3.5rem);
+  font-weight:400; font-style:italic; letter-spacing:0.01em;
+  line-height:1.2; color:var(--text); margin-bottom:2rem;
+}
+body.theme-lumiere .about-grid { grid-template-columns:1fr 1fr; gap:8rem; align-items:center; }
+body.theme-lumiere .about-text p { color:var(--text-muted); line-height:2.1; font-size:0.93rem; font-weight:300; }
+body.theme-lumiere .stat-item { border-left:1px solid var(--primary); padding-left:2rem; }
+body.theme-lumiere .stat-num {
+  font-family:'Italiana',serif; font-size:4rem;
+  font-weight:400; color:var(--primary); letter-spacing:0.05em;
+}
+body.theme-lumiere .stat-desc { color:var(--text-sub); font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; }
+
+/* TREATMENTS */
+body.theme-lumiere .treatments-section { background:var(--bg-mid); padding:8rem 8vw; }
+body.theme-lumiere .treatment-card {
+  background:var(--bg-card); border:none;
+  border-bottom:1px solid rgba(160,120,48,0.15);
+  padding:2.5rem 2rem; transition:var(--transition);
+}
+body.theme-lumiere .treatment-card:hover {
+  border-bottom-color:var(--primary);
+  transform:translateY(-6px);
+  box-shadow:0 20px 50px rgba(160,120,48,0.08);
+}
+body.theme-lumiere .treatment-num {
+  font-family:'Italiana',serif; font-size:3.5rem;
+  color:rgba(160,120,48,0.12); font-weight:400; margin-bottom:1.5rem;
+}
+body.theme-lumiere .treatment-name {
+  font-family:'DM Serif Display',serif; font-size:1.3rem;
+  font-style:italic; font-weight:400; color:var(--text); margin-bottom:1rem;
+}
+body.theme-lumiere .treatment-desc { color:var(--text-muted); font-size:0.85rem; line-height:1.9; font-weight:300; }
+
+/* BEFORE/AFTER */
+body.theme-lumiere .beforeafter-section { background:var(--bg); padding:8rem 8vw; border-top:1px solid rgba(160,120,48,0.12); }
+body.theme-lumiere .ba-card { border-radius:0; box-shadow:0 20px 60px rgba(160,120,48,0.1); }
+body.theme-lumiere .ba-divider { background:var(--primary); }
+body.theme-lumiere .ba-handle { background:var(--primary); color:#fff; box-shadow:0 4px 20px rgba(160,120,48,0.35); }
+
+/* CONTACT */
+body.theme-lumiere .contact-section { padding:8rem 8vw; border-top:1px solid rgba(160,120,48,0.12); background:var(--bg); }
+body.theme-lumiere .contact-box {
+  background:var(--bg-mid); border:1px solid rgba(160,120,48,0.15);
+  padding:3rem;
+}
+body.theme-lumiere .contact-box h3 {
+  font-family:'DM Serif Display',serif; font-style:italic;
+  font-size:1.8rem; font-weight:400; color:var(--text); line-height:1.3;
+}
+body.theme-lumiere .contact-box p { color:var(--text-muted); line-height:1.8; font-weight:300; }
+body.theme-lumiere .contact-icon { border-color:rgba(160,120,48,0.2); }
+body.theme-lumiere .contact-info-item h4 { color:var(--primary); letter-spacing:0.12em; }
+body.theme-lumiere .contact-info-item p { color:var(--text-muted); }
+body.theme-lumiere .contact-info-item a { color:var(--text-muted); }
+body.theme-lumiere .wpp-btn { border-radius:0; font-weight:400; }
+body.theme-lumiere footer { background:var(--footer-bg); border-top:none; }
+body.theme-lumiere .footer-logo { font-family:'Italiana',serif; color:rgba(255,255,255,0.85); font-size:1.6rem; letter-spacing:0.18em; }
+body.theme-lumiere .footer-text { color:rgba(255,255,255,0.25); }
+body.theme-lumiere .footer-social a { color:rgba(255,255,255,0.25); }
+body.theme-lumiere .footer-social a:hover { color:var(--primary); }
+
+/* ============================================================
+   TEMA 11 — ECLIPSE
+   Visual: Dark profundo roxo-preto, magenta/violeta como acento.
+   Layout: hero INVERTIDO — imagem DIREITA, texto ESQUERDA em stack.
+   Elementos com borda brilhante suave. Grid tratamentos 2x3 uniforme.
+   ============================================================ */
+body.theme-eclipse {
+  --bg:          #070510;
+  --bg-mid:      #0c0918;
+  --bg-card:     #110f1e;
+  --bg-card-h:   #17142a;
+  --primary:     #c084fc;
+  --primary-l:   #d8b4fe;
+  --primary-alt: #67e8f9;
+  --primary-dim: rgba(192,132,252,0.1);
+  --text:        #f5f0ff;
+  --text-muted:  #6b5f80;
+  --text-sub:    #9c8fb0;
+  --border:      rgba(192,132,252,0.12);
+  --border-h:    rgba(192,132,252,0.45);
+  --glow:        0 0 40px rgba(192,132,252,0.12);
+  --nav-bg:      rgba(7,5,16,0.97);
+  --hero-font:   'Unbounded',sans-serif;
+  --body-font:   'DM Sans',sans-serif;
+  --section-font:'Unbounded',sans-serif;
+  --radius:      14px;
+  --footer-bg:   #030208;
+  --transition:  all 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+body.theme-eclipse { font-family:'DM Sans',sans-serif; }
+
+body.theme-eclipse nav {
+  background:var(--nav-bg); border-bottom:1px solid var(--border);
+  backdrop-filter:blur(20px);
+}
+body.theme-eclipse .logo {
+  font-family:'Unbounded',sans-serif; font-size:1rem;
+  font-weight:700; letter-spacing:0.12em; color:var(--text);
+  text-transform:uppercase;
+}
+body.theme-eclipse .nav-links a { font-size:0.75rem; font-weight:500; color:var(--text-sub); }
+body.theme-eclipse .nav-links a:hover { color:var(--primary); }
+body.theme-eclipse .btn-admin {
+  background:var(--primary-dim); border:1px solid rgba(192,132,252,0.3);
+  color:var(--primary); border-radius:50px; font-weight:700; font-size:0.72rem;
+}
+body.theme-eclipse .btn-admin:hover { background:var(--primary); color:var(--bg); }
+
+/* HERO — imagem direita, texto esquerda */
+body.theme-eclipse .hero {
+  display:grid; grid-template-columns:1fr 1fr;
+  min-height:100vh; align-items:center;
+}
+body.theme-eclipse .hero-bg {
+  grid-column:2; grid-row:1; height:100%; position:relative;
+}
+body.theme-eclipse .hero-bg::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to right, #070510 0%, rgba(7,5,16,0.2) 100%);
+}
+body.theme-eclipse .hero-overlay { display:none; }
+body.theme-eclipse .hero-content {
+  grid-column:1; grid-row:1; text-align:left;
+  padding:9rem 3rem 5rem 5vw; z-index:2;
+  animation: fadeUp 0.9s ease both;
+}
+body.theme-eclipse .hero-label {
+  font-size:0.62rem; font-weight:700; letter-spacing:0.25em;
+  text-transform:uppercase; color:var(--primary-alt);
+  border:1px solid rgba(103,232,249,0.25);
+  background:rgba(103,232,249,0.06);
+  display:inline-block; padding:0.35rem 0.9rem;
+  border-radius:50px; margin-bottom:2.5rem;
+}
+body.theme-eclipse .hero-title {
+  font-size:clamp(1.8rem,3.5vw,3rem); font-weight:900;
+  line-height:1.1; letter-spacing:-0.02em;
+  color:var(--text); margin-bottom:1.5rem; text-transform:uppercase;
+}
+body.theme-eclipse .hero-title em {
+  font-style:normal;
+  background:linear-gradient(135deg,var(--primary),var(--primary-alt));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+body.theme-eclipse .hero-sub {
+  font-size:0.9rem; font-weight:300; color:var(--text-sub);
+  max-width:400px; line-height:1.9; margin:0 0 2.5rem;
+}
+body.theme-eclipse .btn-primary {
+  font-family:'DM Sans',sans-serif; font-weight:700;
+  font-size:0.8rem; letter-spacing:0.05em; text-transform:none;
+  border-radius:50px; padding:0.9rem 2.2rem;
+  background:linear-gradient(135deg,var(--primary),var(--primary-alt));
+  border:none; color:#0a0818;
+}
+body.theme-eclipse .btn-primary:hover { opacity:0.85; transform:translateY(-2px); box-shadow:0 8px 30px rgba(192,132,252,0.35); }
+
+/* ABOUT */
+body.theme-eclipse .section { padding:7rem 5vw; background:var(--bg); }
+body.theme-eclipse .section-label {
+  font-size:0.62rem; font-weight:700; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--primary); margin-bottom:1rem;
+}
+body.theme-eclipse .section-title {
+  font-family:'Unbounded',sans-serif; font-size:clamp(1.5rem,3vw,2.4rem);
+  font-weight:700; line-height:1.2; letter-spacing:-0.02em;
+  color:var(--text); text-transform:uppercase; margin-bottom:1.5rem;
+}
+body.theme-eclipse .about-grid { grid-template-columns:1fr 1fr; gap:5rem; }
+body.theme-eclipse .about-text p { color:var(--text-muted); line-height:1.9; font-size:0.9rem; }
+body.theme-eclipse .stat-item {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:1.5rem; border-left:none;
+}
+body.theme-eclipse .stat-item:hover { box-shadow:var(--glow); border-color:var(--border-h); }
+body.theme-eclipse .stat-num {
+  font-family:'Unbounded',sans-serif; font-size:2.4rem; font-weight:900;
+  background:linear-gradient(135deg,var(--primary),var(--primary-alt));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+body.theme-eclipse .stat-desc { color:var(--text-muted); font-size:0.68rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; }
+
+/* TREATMENTS */
+body.theme-eclipse .treatments-section { background:var(--bg-mid); padding:7rem 5vw; }
+body.theme-eclipse .treatment-card {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:2rem; transition:var(--transition);
+  position:relative; overflow:hidden;
+}
+body.theme-eclipse .treatment-card::after {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,var(--primary),var(--primary-alt));
+  transform:scaleX(0); transition:transform 0.35s ease; transform-origin:left;
+}
+body.theme-eclipse .treatment-card:hover { background:var(--bg-card-h); border-color:rgba(192,132,252,0.25); transform:translateY(-4px); }
+body.theme-eclipse .treatment-card:hover::after { transform:scaleX(1); }
+body.theme-eclipse .treatment-num {
+  font-family:'Unbounded',sans-serif; font-size:0.52rem;
+  font-weight:700; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--primary); margin-bottom:1.5rem; display:block;
+}
+body.theme-eclipse .treatment-name { font-size:1rem; font-weight:700; color:var(--text); margin-bottom:0.8rem; letter-spacing:-0.01em; }
+body.theme-eclipse .treatment-desc { font-size:0.82rem; color:var(--text-muted); line-height:1.75; }
+
+/* BEFORE/AFTER */
+body.theme-eclipse .beforeafter-section { background:var(--bg); padding:7rem 5vw; border-top:1px solid var(--border); }
+body.theme-eclipse .ba-card { border-radius:var(--radius); border:1px solid var(--border); }
+body.theme-eclipse .ba-divider { background:linear-gradient(to bottom,var(--primary),var(--primary-alt)); }
+body.theme-eclipse .ba-handle { background:linear-gradient(135deg,var(--primary),var(--primary-alt)); color:#fff; }
+
+/* CONTACT */
+body.theme-eclipse .contact-section { padding:7rem 5vw; border-top:1px solid var(--border); }
+body.theme-eclipse .contact-box {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:2.5rem;
+}
+body.theme-eclipse .contact-box h3 {
+  font-family:'Unbounded',sans-serif; font-size:1.2rem; font-weight:700;
+  letter-spacing:-0.02em; color:var(--text); line-height:1.3; text-transform:uppercase;
+}
+body.theme-eclipse .contact-box p { color:var(--text-muted); line-height:1.8; font-size:0.9rem; }
+body.theme-eclipse .contact-icon { border-color:rgba(192,132,252,0.2); background:var(--primary-dim); border-radius:10px; }
+body.theme-eclipse .contact-info-item h4 { color:var(--primary); }
+body.theme-eclipse .contact-info-item p { color:var(--text-muted); }
+body.theme-eclipse .contact-info-item a { color:var(--text-muted); }
+body.theme-eclipse .wpp-btn { border-radius:50px; font-weight:700; }
+body.theme-eclipse footer { background:var(--footer-bg); border-top:1px solid var(--border); }
+body.theme-eclipse .footer-logo {
+  font-family:'Unbounded',sans-serif; font-weight:700; letter-spacing:0.08em;
+  background:linear-gradient(135deg,var(--primary),var(--primary-alt));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+body.theme-eclipse .footer-text { color:var(--text-muted); }
+body.theme-eclipse .footer-social a { color:var(--text-muted); }
+body.theme-eclipse .footer-social a:hover { color:var(--primary); }
+
+/* ============================================================
+   TEMA 12 — STUDIO
+   Visual: Dark moderno estilo SaaS/tech premium.
+   Fundo preto, azul elétrico de acento, fonte Inter/Manrope.
+   Layout hero: texto esquerda 55%, imagem direita 45% com overlay.
+   Seções com separadores de linha sutil. Cards elevam no hover.
+   ============================================================ */
+body.theme-studio {
+  --bg:          #09090b;
+  --bg-mid:      #0f0f12;
+  --bg-card:     #141417;
+  --bg-card-h:   #1c1c22;
+  --primary:     #3b82f6;
+  --primary-l:   #60a5fa;
+  --primary-dim: rgba(59,130,246,0.1);
+  --primary-alt: #a78bfa;
+  --text:        #f8fafc;
+  --text-muted:  #64748b;
+  --text-sub:    #94a3b8;
+  --border:      rgba(255,255,255,0.06);
+  --border-h:    rgba(59,130,246,0.4);
+  --glow:        0 0 40px rgba(59,130,246,0.12);
+  --nav-bg:      rgba(9,9,11,0.97);
+  --hero-font:   'Manrope',sans-serif;
+  --body-font:   'Manrope',sans-serif;
+  --section-font:'Manrope',sans-serif;
+  --radius:      10px;
+  --footer-bg:   #050507;
+  --transition:  all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+body.theme-studio { font-family:'Manrope',sans-serif; }
+
+body.theme-studio nav {
+  background:var(--nav-bg); border-bottom:1px solid var(--border);
+  backdrop-filter:blur(20px);
+}
+body.theme-studio nav.scrolled { border-bottom-color:rgba(59,130,246,0.15); }
+body.theme-studio .logo { font-weight:800; letter-spacing:-0.03em; color:var(--text); font-size:1.4rem; }
+body.theme-studio .nav-links a { font-weight:500; color:var(--text-sub); font-size:0.82rem; letter-spacing:0; }
+body.theme-studio .nav-links a:hover { color:var(--text); }
+body.theme-studio .btn-admin {
+  background:var(--primary-dim); border:1px solid rgba(59,130,246,0.35);
+  color:var(--primary); border-radius:8px; font-weight:600; font-size:0.76rem;
+}
+body.theme-studio .btn-admin:hover { background:var(--primary); color:#fff; }
+
+/* HERO — 55/45 split */
+body.theme-studio .hero {
+  display:grid; grid-template-columns:55% 45%;
+  min-height:100vh; align-items:center; overflow:hidden;
+  position:relative;
+}
+body.theme-studio .hero::before {
+  content:''; position:absolute;
+  width:700px; height:700px; border-radius:50%;
+  background:radial-gradient(circle,rgba(59,130,246,0.06) 0%,transparent 65%);
+  top:50%; left:25%; transform:translate(-50%,-50%); pointer-events:none;
+}
+body.theme-studio .hero-bg {
+  grid-column:2; grid-row:1; height:100%; position:relative;
+}
+body.theme-studio .hero-bg::before {
+  content:''; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(to right,#09090b 0%,rgba(9,9,11,0.35) 100%);
+}
+body.theme-studio .hero-overlay { display:none; }
+body.theme-studio .hero-content {
+  grid-column:1; grid-row:1; text-align:left;
+  padding:8rem 3rem 5rem 5vw; z-index:2;
+  animation:fadeUp 0.9s ease both;
+}
+body.theme-studio .hero-label {
+  font-size:0.68rem; font-weight:700; letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--primary);
+  display:inline-flex; align-items:center; gap:0.6rem;
+  margin-bottom:2.2rem; border:none; background:none; padding:0;
+}
+body.theme-studio .hero-label::before { content:''; width:24px; height:1.5px; background:var(--primary); }
+body.theme-studio .hero-title {
+  font-size:clamp(2.5rem,4.5vw,4rem); font-weight:800;
+  line-height:1.1; letter-spacing:-0.035em;
+  color:var(--text); margin-bottom:1.5rem;
+}
+body.theme-studio .hero-title em {
+  font-style:normal; color:transparent;
+  -webkit-text-stroke:1.5px var(--primary);
+}
+body.theme-studio .hero-sub {
+  font-size:0.95rem; font-weight:400; color:var(--text-muted);
+  max-width:460px; line-height:1.8; margin:0 0 2.5rem;
+}
+body.theme-studio .btn-primary {
+  font-family:'Manrope',sans-serif; font-weight:700;
+  font-size:0.82rem; text-transform:none; letter-spacing:0;
+  border-radius:8px; padding:0.9rem 2.2rem;
+  background:var(--primary); border-color:var(--primary); color:#fff;
+}
+body.theme-studio .btn-primary:hover {
+  background:var(--primary-l); transform:translateY(-2px);
+  box-shadow:0 8px 30px rgba(59,130,246,0.35);
+}
+
+/* ABOUT */
+body.theme-studio .section { padding:7rem 5vw; background:var(--bg); }
+body.theme-studio .section::before {
+  content:''; display:block; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(59,130,246,0.25),transparent);
+  margin-bottom:7rem;
+}
+body.theme-studio .section-label {
+  font-size:0.68rem; font-weight:700; letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--primary); margin-bottom:1.2rem;
+  display:inline-flex; align-items:center; gap:0.5rem;
+  border:none; background:none; padding:0;
+}
+body.theme-studio .section-label::before { content:''; width:16px; height:1.5px; background:var(--primary); }
+body.theme-studio .section-title {
+  font-size:clamp(2rem,3.5vw,3.2rem); font-weight:800;
+  letter-spacing:-0.04em; line-height:1.05;
+  color:var(--text); margin-bottom:1.5rem;
+}
+body.theme-studio .about-grid { grid-template-columns:1fr 1fr; gap:5rem; }
+body.theme-studio .about-text p { color:var(--text-muted); line-height:1.85; font-size:0.95rem; font-weight:400; }
+body.theme-studio .stat-item {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:1.5rem; border-left:none;
+  transition:var(--transition); position:relative; overflow:hidden;
+}
+body.theme-studio .stat-item::after {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,var(--primary),var(--primary-alt));
+  opacity:0; transition:opacity 0.3s;
+}
+body.theme-studio .stat-item:hover { border-color:rgba(59,130,246,0.2); }
+body.theme-studio .stat-item:hover::after { opacity:1; }
+body.theme-studio .stat-num { font-size:2.8rem; font-weight:900; letter-spacing:-0.05em; color:var(--text); }
+body.theme-studio .stat-desc { color:var(--text-muted); font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; }
+
+/* TREATMENTS */
+body.theme-studio .treatments-section { background:var(--bg-mid); padding:7rem 5vw; }
+body.theme-studio .treatment-card {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:2rem; transition:var(--transition);
+  position:relative; overflow:hidden;
+}
+body.theme-studio .treatment-card::before {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,var(--primary),var(--primary-alt));
+  transform:scaleX(0); transition:transform 0.3s ease; transform-origin:left;
+}
+body.theme-studio .treatment-card:hover { background:var(--bg-card-h); border-color:rgba(59,130,246,0.18); transform:translateY(-4px); box-shadow:var(--glow); }
+body.theme-studio .treatment-card:hover::before { transform:scaleX(1); }
+body.theme-studio .treatment-num {
+  font-size:0.6rem; font-weight:700; letter-spacing:0.22em;
+  text-transform:uppercase; color:var(--primary); margin-bottom:1.5rem; display:block;
+}
+body.theme-studio .treatment-name { font-size:1.05rem; font-weight:700; color:var(--text); margin-bottom:0.8rem; }
+body.theme-studio .treatment-desc { font-size:0.85rem; color:var(--text-muted); line-height:1.75; }
+
+/* BEFORE/AFTER */
+body.theme-studio .beforeafter-section { background:var(--bg-mid); padding:7rem 5vw; border-top:1px solid var(--border); }
+body.theme-studio .ba-card { border-radius:var(--radius); border:1px solid var(--border); }
+body.theme-studio .ba-divider { background:var(--primary); }
+body.theme-studio .ba-handle { background:var(--primary); color:#fff; box-shadow:0 4px 20px rgba(59,130,246,0.4); }
+
+/* CONTACT */
+body.theme-studio .contact-section { padding:7rem 5vw; border-top:1px solid var(--border); background:var(--bg); }
+body.theme-studio .contact-box {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:2.5rem;
+}
+body.theme-studio .contact-box h3 { font-weight:800; letter-spacing:-0.025em; color:var(--text); line-height:1.2; }
+body.theme-studio .contact-box p { color:var(--text-muted); line-height:1.8; }
+body.theme-studio .contact-icon { border-radius:var(--radius); border-color:rgba(59,130,246,0.2); background:var(--primary-dim); }
+body.theme-studio .contact-info-item h4 { color:var(--primary); }
+body.theme-studio .contact-info-item p { color:var(--text-muted); }
+body.theme-studio .contact-info-item a { color:var(--text-muted); }
+body.theme-studio .wpp-btn { border-radius:var(--radius); font-weight:700; }
+body.theme-studio footer { background:var(--footer-bg); border-top:1px solid var(--border); }
+body.theme-studio .footer-logo { color:var(--text); font-weight:800; letter-spacing:-0.02em; }
+body.theme-studio .footer-text { color:rgba(255,255,255,0.2); }
+body.theme-studio .footer-social a { color:rgba(255,255,255,0.2); }
+body.theme-studio .footer-social a:hover { color:var(--primary); }
+
+/* ============================================================
+   RESPONSIVO ELITE
+   ============================================================ */
+@media (max-width:900px) {
+  body.theme-lumiere .hero-content { margin-left:0; max-width:100%; padding:8rem 2rem 4rem; }
+  body.theme-lumiere .about-grid { grid-template-columns:1fr; gap:3rem; }
+  body.theme-lumiere .section { padding:5rem 1.5rem; }
+  body.theme-lumiere .treatments-section { padding:5rem 1.5rem; }
+  body.theme-lumiere .beforeafter-section { padding:5rem 1.5rem; }
+  body.theme-lumiere .contact-section { padding:5rem 1.5rem; }
+
+  body.theme-eclipse .hero { grid-template-columns:1fr; }
+  body.theme-eclipse .hero-bg { grid-column:1; grid-row:1; position:absolute; inset:0; clip-path:none; opacity:0.3; }
+  body.theme-eclipse .hero-overlay { display:block; background:rgba(7,5,16,0.7); }
+  body.theme-eclipse .hero-content { grid-column:1; padding:8rem 2rem 4rem; text-align:center; }
+  body.theme-eclipse .hero-sub { margin:0 auto 2.5rem; }
+  body.theme-eclipse .about-grid { grid-template-columns:1fr; gap:3rem; }
+  body.theme-eclipse .section { padding:5rem 1.5rem; }
+  body.theme-eclipse .treatments-section { padding:5rem 1.5rem; }
+  body.theme-eclipse .beforeafter-section { padding:5rem 1.5rem; }
+  body.theme-eclipse .contact-section { padding:5rem 1.5rem; }
+
+  body.theme-studio .hero { grid-template-columns:1fr; }
+  body.theme-studio .hero-bg { grid-column:1; grid-row:1; position:absolute; inset:0; opacity:0.25; }
+  body.theme-studio .hero-bg::before { background:rgba(9,9,11,0.75); }
+  body.theme-studio .hero-content { grid-column:1; padding:8rem 2rem 4rem; }
+  body.theme-studio .about-grid { grid-template-columns:1fr; gap:3rem; }
+  body.theme-studio .section { padding:5rem 1.5rem; }
+  body.theme-studio .section::before { margin-bottom:5rem; }
+  body.theme-studio .treatments-section { padding:5rem 1.5rem; }
+  body.theme-studio .beforeafter-section { padding:5rem 1.5rem; }
+  body.theme-studio .contact-section { padding:5rem 1.5rem; }
+
+  .ba-grid { grid-template-columns:1fr; }
+}
