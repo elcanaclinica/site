@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Clínica Elcana — Estética Avançada em Curitiba.">
+<meta property="og:title" content="Clínica Elcana — A arte de cuidar de você.">
+<meta property="og:type" content="website">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<title>Clínica Elcana — A arte de cuidar de você.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;600;700&family=Oxanium:wght@300;400;500;600;700\&family=Unbounded:wght@300;400;600;700;900\&family=Italiana\&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/themes-extra.css">
+<link rel="stylesheet" href="css/themes-modern.css">
+<link rel="stylesheet" href="css/themes-elite.css">
+</head>
+<body class="theme-noir" id="siteBody">
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#hero" class="logo">Elcana</a>
+  <ul class="nav-links">
+    <li><a href="#hero">Início</a></li>
+    <li><a href="#about">A Clínica</a></li>
+    <li><a href="#treatments">Tratamentos</a></li>
+    <li><a href="#contact">Contato</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-admin" onclick="openLoginModal()">Área Admin</button>
+  </div>
+  <button class="nav-mobile-toggle" onclick="toggleMobileMenu()" aria-label="Menu">&#9776;</button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#hero"       onclick="closeMobileMenu()">Início</a></li>
+    <li><a href="#about"      onclick="closeMobileMenu()">A Clínica</a></li>
+    <li><a href="#treatments" onclick="closeMobileMenu()">Tratamentos</a></li>
+    <li><a href="#contact"    onclick="closeMobileMenu()">Contato</a></li>
+    <li><a href="#" onclick="closeMobileMenu();openLoginModal()">Área Admin</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-label">Clínica de Estética Avançada</p>
+    <h1 class="hero-title" id="heroTitle"></h1>
+    <p class="hero-sub" id="heroSub"></p>
+    <a href="#contact" class="btn-primary">Agendar Consulta</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-inner about-grid">
+    <div class="about-text">
+      <p class="section-label">A Elcana</p>
+      <h2 class="section-title" id="aboutTitle"></h2>
+      <p id="aboutText"></p>
+      <br>
+      <a href="#treatments" class="btn-primary" style="font-size:0.74rem">Ver Tratamentos</a>
+    </div>
+    <div class="about-stats">
+      <div class="stat-item"><span class="stat-num">8+</span><span class="stat-desc">Anos de experiência</span></div>
+      <div class="stat-item"><span class="stat-num">2k+</span><span class="stat-desc">Clientes atendidos</span></div>
+      <div class="stat-item"><span class="stat-num">15+</span><span class="stat-desc">Procedimentos</span></div>
+      <div class="stat-item"><span class="stat-num">5★</span><span class="stat-desc">Avaliação média</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TREATMENTS -->
+<section class="treatments-section" id="treatments">
+  <div class="section-inner">
+    <p class="section-label">Procedimentos</p>
+    <h2 class="section-title">Nossos tratamentos</h2>
+    <div class="treatments-grid" id="treatmentsGrid">
+      <p class="loading-text">Carregando…</p>
+    </div>
+  </div>
+</section>
+
+<!-- ANTES & DEPOIS -->
+<section class="beforeafter-section" id="beforeafter">
+  <div class="section-inner">
+    <p class="section-label">Resultados</p>
+    <h2 class="section-title">Antes &amp; Depois</h2>
+    <div class="ba-grid" id="baGrid">
+      <p class="loading-text">Carregando…</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="section-inner">
+    <p class="section-label">Contato</p>
+    <h2 class="section-title">Fale conosco</h2>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-info-item">
+          <div class="contact-icon">📍</div>
+          <div><h4>Endereço</h4><p id="contactAddress"></p></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">📱</div>
+          <div><h4>WhatsApp</h4><p><a id="contactPhone" href="#" target="_blank" rel="noopener"></a></p></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">📸</div>
+          <div><h4>Instagram</h4><p><a id="contactInstagram" href="#" target="_blank" rel="noopener noreferrer"></a></p></div>
+        </div>
+        <a id="wppLink" href="#" class="wpp-btn" target="_blank" rel="noopener noreferrer">
+          <span>💬</span> Falar no WhatsApp
+        </a>
+      </div>
+      <div class="contact-box">
+        <h3>Cada resultado é tão único<br>quanto você.</h3>
+        <p id="contactPhrase"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Clínica Elcana</div>
+  <p class="footer-text">© <span id="footerYear"></span> Clínica Elcana. Todos os direitos reservados.</p>
+  <div class="footer-social">
+    <a id="footerInsta" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+  </div>
+</footer>
+
+<!-- BOTÃO FLUTUANTE WHATSAPP -->
+<a id="wppFloat" href="#" class="wpp-float" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp">
+  <div class="wpp-float-tooltip">Falar no WhatsApp</div>
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginOverlay">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <h2 class="modal-title">Área Administrativa</h2>
+      <button class="modal-close" onclick="closeLoginModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-hint">Acesso restrito. Use o e-mail e senha cadastrados no Firebase.</p>
+      <div class="form-group">
+        <label class="form-label">E-mail</label>
+        <input type="email" class="form-input" id="loginEmail" autocomplete="username" maxlength="100">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Senha</label>
+        <input type="password" class="form-input" id="loginPass" autocomplete="current-password" maxlength="128">
+        <p class="error-msg" id="loginError"></p>
+      </div>
+      <button class="btn-submit" id="btnLogin" onclick="doLogin()">Entrar no painel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN MODAL -->
+<div class="modal-overlay" id="adminOverlay">
+  <div class="modal" style="max-width:780px">
+    <div class="modal-header">
+      <h2 class="modal-title">Painel de Edição</h2>
+      <button class="modal-close" onclick="closeAdminModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="save-bar">
+        <span class="save-bar-text">✓ Logado com segurança via Firebase</span>
+        <div style="display:flex;gap:0.8rem;align-items:center;flex-wrap:wrap">
+          <button class="btn-logout" onclick="doLogout()">Sair</button>
+          <button class="btn-save" id="btnSave" onclick="saveAll()">💾 Salvar &amp; Publicar</button>
+        </div>
+      </div>
+      <div class="modal-tabs">
+        <button class="modal-tab active" onclick="switchAdminTab('theme',this)">🎨 Tema</button>
+        <button class="modal-tab" onclick="switchAdminTab('wallpaper',this)">🖼 Fundo</button>
+        <button class="modal-tab" onclick="switchAdminTab('texts',this)">✏️ Textos</button>
+        <button class="modal-tab" onclick="switchAdminTab('procedures',this)">💆 Procedimentos</button>
+        <button class="modal-tab" onclick="switchAdminTab('beforeafter',this)">📸 Antes &amp; Depois</button>
+        <button class="modal-tab" onclick="switchAdminTab('contact',this)">📞 Contato</button>
+      </div>
+
+      <!-- TAB: TEMA -->
+      <div class="admin-tab active" id="admin-theme">
+        <p class="tab-hint">Escolha o estilo visual do site:</p>
+        <div class="theme-name-grid" id="themeNameGrid">
+          <button class="theme-name-btn selected" onclick="previewTheme('noir',this)">Noir</button>
+          <button class="theme-name-btn" onclick="previewTheme('rose',this)">Rosê</button>
+          <button class="theme-name-btn" onclick="previewTheme('vogue',this)">Vogue</button>
+          <button class="theme-name-btn" onclick="previewTheme('aurora',this)">Aurora</button>
+          <button class="theme-name-btn" onclick="previewTheme('minimal',this)">Minimal</button>
+          <button class="theme-name-btn" onclick="previewTheme('neon',this)">Neon</button>
+          <button class="theme-name-btn" onclick="previewTheme('obsidian',this)">Obsidian</button>
+          <button class="theme-name-btn" onclick="previewTheme('slate',this)">Slate</button>
+          <button class="theme-name-btn" onclick="previewTheme('carbon',this)">Carbon</button>
+          <button class="theme-name-btn" onclick="previewTheme('lumiere',this)">Lumière</button>
+          <button class="theme-name-btn" onclick="previewTheme('eclipse',this)">Eclipse</button>
+          <button class="theme-name-btn" onclick="previewTheme('studio',this)">Studio</button>
+        </div>
+        <p id="themePreviewLabel" style="font-size:0.75rem;color:var(--text-muted);margin-top:1rem;text-align:center"></p>
+      </div>
+
+            <!-- TAB: WALLPAPER -->
+      <div class="admin-tab" id="admin-wallpaper">
+        <p class="tab-hint">Escolha o papel de fundo do banner principal:</p>
+        <div class="wallpaper-grid">
+          <div class="wallpaper-option" id="wp0" onclick="selectWallpaper(0,'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1600&q=80&auto=format')">
+            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&q=70&auto=format" alt="Spa" loading="lazy">
+            <div class="wp-label">Opção 1 — Spa</div><div class="wallpaper-check">✓</div>
+          </div>
+          <div class="wallpaper-option" id="wp1" onclick="selectWallpaper(1,'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1600&q=80&auto=format')">
+            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&q=70&auto=format" alt="Facial" loading="lazy">
+            <div class="wp-label">Opção 2 — Facial</div><div class="wallpaper-check">✓</div>
+          </div>
+          <div class="wallpaper-option" id="wp2" onclick="selectWallpaper(2,'https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=1600&q=80&auto=format')">
+            <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400&q=70&auto=format" alt="Clínica" loading="lazy">
+            <div class="wp-label">Opção 3 — Clínica</div><div class="wallpaper-check">✓</div>
+          </div>
+          <div class="wallpaper-option" id="wp3" onclick="selectWallpaper(3,'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=1600&q=80&auto=format')">
+            <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&q=70&auto=format" alt="Bem-estar" loading="lazy">
+            <div class="wp-label">Opção 4 — Bem-estar</div><div class="wallpaper-check">✓</div>
+          </div>
+        </div>
+        <p id="uploadName" class="upload-name"></p>
+        <div class="upload-note" style="margin-top:1rem">
+          <strong>Para adicionar fotos próprias:</strong> envie a imagem para a pasta <code>img/</code> do repositório GitHub e edite as opções em <code>js/data.js</code>.
+        </div>
+      </div>
+
+      <!-- TAB: TEXTS -->
+      <div class="admin-tab" id="admin-texts">
+        <div class="form-group">
+          <label class="form-label">Título Principal (banner)</label>
+          <input type="text" class="form-input" id="edit-heroTitle" maxlength="120">
+          <small class="form-hint">Termine com "você." para destaque colorido.</small>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subtítulo do Banner</label>
+          <textarea class="form-input" id="edit-heroSub" rows="3" maxlength="400"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Título — Seção "A Elcana"</label>
+          <input type="text" class="form-input" id="edit-aboutTitle" maxlength="120">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Texto — Seção "A Elcana"</label>
+          <textarea class="form-input" id="edit-aboutText" rows="5" maxlength="1000"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Frase — Seção de Contato</label>
+          <textarea class="form-input" id="edit-contactPhrase" rows="3" maxlength="400"></textarea>
+        </div>
+      </div>
+
+      <!-- TAB: PROCEDURES -->
+      <div class="admin-tab" id="admin-procedures">
+        <p class="tab-hint">Adicione, edite ou remova os procedimentos exibidos no site.</p>
+        <div class="procedure-list" id="procedureList"></div>
+        <button class="btn-add-proc" onclick="openProcModal(-1)">+ Adicionar Procedimento</button>
+      </div>
+
+      <!-- TAB: BEFORE/AFTER -->
+      <div class="admin-tab" id="admin-beforeafter">
+        <p class="tab-hint">Adicione fotos de antes e depois dos tratamentos. Envie as imagens na pasta <code>img/</code> do GitHub e informe o caminho aqui (ex: <code>img/before-01.jpg</code>).</p>
+        <div id="baAdminList"></div>
+        <button class="btn-add-proc" onclick="openBAModal(-1)">+ Adicionar Par Antes/Depois</button>
+      </div>
+
+            <!-- TAB: CONTACT -->
+      <div class="admin-tab" id="admin-contact">
+        <div class="form-group">
+          <label class="form-label">Endereço completo</label>
+          <textarea class="form-input" id="edit-address" rows="2" maxlength="200"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">WhatsApp (somente números com DDD)</label>
+          <input type="tel" class="form-input" id="edit-phone" placeholder="41999538779" maxlength="15">
+          <small class="form-hint">Exemplo: 41999538779 — sem traços ou espaços.</small>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Instagram (com @)</label>
+          <input type="text" class="form-input" id="edit-instagram" placeholder="@clinicaelcana" maxlength="50">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Texto do botão WhatsApp</label>
+          <input type="text" class="form-input" id="edit-wppText" placeholder="Falar no WhatsApp" maxlength="60">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROCEDURE MODAL -->
+<div class="modal-overlay" id="procOverlay">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-header">
+      <h2 class="modal-title" id="procModalTitle">Novo Procedimento</h2>
+      <button class="modal-close" onclick="closeProcModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Nome</label>
+        <input type="text" class="form-input" id="procName" maxlength="80">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Descrição</label>
+        <textarea class="form-input" id="procDesc" rows="4" maxlength="500"></textarea>
+      </div>
+      <div style="display:flex;gap:1rem;margin-top:0.5rem">
+        <button class="btn-cancel" onclick="closeProcModal()">Cancelar</button>
+        <button class="btn-confirm" onclick="saveProcedure()">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- BEFORE/AFTER MODAL -->
+<div class="modal-overlay" id="baOverlay">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-header">
+      <h2 class="modal-title" id="baModalTitle">Novo Par</h2>
+      <button class="modal-close" onclick="closeBAModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Título (ex: Harmonização Facial)</label>
+        <input type="text" class="form-input" id="baLabel" maxlength="60">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Caminho da imagem ANTES (ex: img/before-01.jpg)</label>
+        <input type="text" class="form-input" id="baBefore" placeholder="img/before-01.jpg" maxlength="120">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Caminho da imagem DEPOIS (ex: img/after-01.jpg)</label>
+        <input type="text" class="form-input" id="baAfter" placeholder="img/after-01.jpg" maxlength="120">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Descrição (ex: Resultado após 30 dias)</label>
+        <input type="text" class="form-input" id="baDesc" maxlength="80">
+      </div>
+      <div style="display:flex;gap:1rem;margin-top:0.5rem">
+        <button class="btn-cancel" onclick="closeBAModal()">Cancelar</button>
+        <button class="btn-confirm" onclick="saveBAItem()">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Firebase Compat SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
